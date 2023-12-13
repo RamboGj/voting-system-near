@@ -2,9 +2,6 @@ import { CandidateProps } from '@/@types/types'
 import { dateFormatter } from '@/utils/functions'
 import * as Dialog from '@radix-ui/react-dialog'
 import { VoteModal } from '../molecules/VoteModal'
-import Link from 'next/link'
-import { NEAR_SMART_CONTRACT } from '@/utils/near'
-import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
 
 interface ElectionHeroProps {
   id: number
@@ -13,6 +10,7 @@ interface ElectionHeroProps {
   endsAt: string
   totalVotes: number
   candidates: CandidateProps[]
+  electionIsNotHappening: boolean
 }
 
 export function ElectionHero({
@@ -22,13 +20,10 @@ export function ElectionHero({
   name,
   startsAt,
   totalVotes,
+  electionIsNotHappening,
 }: ElectionHeroProps) {
   const formattedEndAt = dateFormatter(endsAt)
   const formattedStartsAt = dateFormatter(startsAt)
-
-  const endedOrHasNotStarted =
-    new Date().getTime() < Number(startsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR ||
-    new Date().getTime() > Number(endsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR
 
   return (
     <div className="flex h-[240px] w-full flex-col rounded-[24px] bg-white p-8 shadow-md">
@@ -65,7 +60,7 @@ export function ElectionHero({
           <span>Candidates: {candidates.length}</span>
         </div>
       </div>
-      {endedOrHasNotStarted ? (
+      {!electionIsNotHappening ? (
         <Dialog.Root>
           <Dialog.Trigger className="mt-auto">
             <button className="mt-auto h-[42px] w-full rounded-[12px] bg-gradient-to-r from-blue600 to-blue500 px-8 font-clash text-lg font-semibold text-white transition duration-500 hover:shadow-gradient-hover-shadow">
@@ -74,7 +69,14 @@ export function ElectionHero({
           </Dialog.Trigger>
           <VoteModal candidates={candidates} electionId={id} />
         </Dialog.Root>
-      ) : null}
+      ) : (
+        <button
+          disabled
+          className="mt-auto h-[42px] w-full rounded-[12px] px-8 font-clash text-lg font-semibold text-white transition duration-500 enabled:bg-gradient-to-r enabled:from-blue600 enabled:to-blue500 enabled:hover:shadow-gradient-hover-shadow disabled:bg-gray500"
+        >
+          Finished
+        </button>
+      )}
     </div>
   )
 }

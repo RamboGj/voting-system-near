@@ -9,6 +9,7 @@ interface CandidatesOverviewProps {
   electionTotalVotes: number
   electionId: number
   endsAt: string
+  electionIsNotHappening: boolean
 }
 
 export function CandidatesOverview({
@@ -16,6 +17,7 @@ export function CandidatesOverview({
   electionTotalVotes,
   electionId,
   endsAt,
+  electionIsNotHappening,
 }: CandidatesOverviewProps) {
   return (
     <div className="flex w-full flex-col rounded-[24px] bg-white p-8 shadow-md">
@@ -25,14 +27,16 @@ export function CandidatesOverview({
             <h2 className="mb-1 font-clash text-[2rem] font-semibold leading-none text-black">
               Candidates
             </h2>
-            <Dialog.Root>
-              <Dialog.Trigger>
-                <button className="mt-auto h-[42px] w-48 rounded-[12px] bg-gradient-to-r from-blue600 to-blue500 px-8 font-clash text-lg font-semibold text-white transition duration-500 hover:shadow-gradient-hover-shadow">
-                  Add
-                </button>
-              </Dialog.Trigger>
-              <AddCandidateModal electionId={electionId} />
-            </Dialog.Root>
+            {!electionIsNotHappening ? (
+              <Dialog.Root>
+                <Dialog.Trigger>
+                  <button className="mt-auto h-[42px] w-48 rounded-[12px] bg-gradient-to-r from-blue600 to-blue500 px-8 font-clash text-lg font-semibold text-white transition duration-500 hover:shadow-gradient-hover-shadow">
+                    Add
+                  </button>
+                </Dialog.Trigger>
+                <AddCandidateModal electionId={electionId} />
+              </Dialog.Root>
+            ) : null}
           </div>
         </div>
         <ul className="flex w-full flex-wrap items-center gap-8">

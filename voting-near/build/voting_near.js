@@ -921,26 +921,17 @@ var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _class
     - Get number of votes in election
     - Get number of votes by candidate
     - Get percentage competition between candidates
-
-  **IDEAS
-      near deploy --accountId your-account-id --wasmFile out/main.wasm --initFunction init --initArgs '{"admins": [""]}'
-    - Only admnins can add candidate
 */
 let VotingNear = (_dec = NearBindgen({}), _dec2 = initialize(), _dec3 = view(), _dec4 = view(), _dec5 = view(), _dec6 = view(), _dec7 = view(), _dec8 = call({}), _dec9 = call({}), _dec10 = call({}), _dec(_class = (_class2 = class VotingNear {
-  admins = [];
   electionsCounterId = 0;
   elections = new UnorderedMap("elections");
   candidates = new UnorderedMap("candidates");
   voters = new UnorderedMap("voters");
-  init({
-    admins
-  }) {
-    this.admins = admins;
+  init() {
     this.electionsCounterId = 0;
-    log("Initializing contract...");
   }
   get_all_elections() {
-    return this.elections.toArray();
+    return this.elections.toArray().reverse(); // reverse() is being called in order to get from newest to oldest
   }
   get_election({
     electionId
