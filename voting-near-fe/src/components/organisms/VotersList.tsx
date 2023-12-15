@@ -1,6 +1,7 @@
 import { VoterProps } from '@/@types/types'
 import { Voter } from '../molecules/Voter'
 import { H2 } from '../atoms/H2'
+import { SpanText } from '../atoms/SpanText'
 
 interface VotersListProps {
   voters: VoterProps[]
@@ -12,9 +13,9 @@ export function VotersList({ voters }: VotersListProps) {
       <div className="flex flex-col gap-4">
         <div className="w-full items-center justify-between">
           <H2 className="mb-1"> Voters</H2>
-          <span className="font-regular text-base text-black">
+          <SpanText className="text-black">
             Total votes: {voters?.length || 0}
-          </span>
+          </SpanText>
         </div>
 
         <ul className="flex w-full flex-col divide-y divide-gray300">

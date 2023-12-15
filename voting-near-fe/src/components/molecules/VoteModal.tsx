@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button } from '../atoms/Button'
 import { H2 } from '../atoms/H2'
+import { CandidateSeal } from '../atoms/CandidateSeal'
+import { SpanText } from '../atoms/SpanText'
 
 interface VoteModalProps {
   candidates: CandidateProps[]
@@ -56,17 +58,10 @@ export function VoteModal({ candidates, electionId }: VoteModalProps) {
                       isSelected ? 'border-blue600' : 'border-gray300',
                     )}
                   >
-                    <div
-                      className={twMerge(
-                        'flex h-[42px] w-[42px] items-center justify-center rounded-full',
-                        isSelected
-                          ? 'bg-gradient-to-b from-blue600 to-blue500'
-                          : 'bg-gray500',
-                      )}
-                    >
-                      <User size={24} color="#FFFFFF" />
-                    </div>
-                    <span>{candidate.accountId}</span>
+                    <CandidateSeal
+                      type={isSelected ? 'defaultSelected' : 'default'}
+                    />
+                    <SpanText>{candidate.accountId}</SpanText>
                   </div>
                 </li>
               )

@@ -9,8 +9,8 @@ export function CreateElectionForm() {
   const [endsAt, setEndsAt] = useState<string>('')
 
   async function createElection(
-    startsAt: string,
     endsAt: string,
+    startsAt: string,
     name: string,
   ) {
     const { onCreateElection } = await import('@/utils/near')

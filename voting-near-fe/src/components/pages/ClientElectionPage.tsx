@@ -5,7 +5,7 @@ import { CandidatesOverview } from '@/components/organisms/CandidatesOverview'
 import { ElectionHero } from '@/components/organisms/ElectionHero'
 import { VotersList } from '@/components/organisms/VotersList'
 import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { H1 } from '../atoms/H1'
 import { Header } from '../molecules/Header'
 
@@ -17,11 +17,15 @@ export default function ClientElectionPage({
   const [election, setElection] = useState<ElectionsProps>()
   const [voters, setVoters] = useState<VoterProps[]>([])
 
-  const hasEndedOrHasNotStarted =
-    new Date().getTime() <
-      Number(election?.startsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR ||
-    new Date().getTime() >
-      Number(election?.endsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR
+  const hasEndedOrHasNotStarted = useMemo(() => {
+    const condition =
+      new Date().getTime() <
+        Number(election?.startsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR ||
+      new Date().getTime() >
+        Number(election?.endsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR
+
+    return condition
+  }, [election])
 
   const getElectionData = async () => {
     const { onGetElectionData } = await import('@/utils/near')

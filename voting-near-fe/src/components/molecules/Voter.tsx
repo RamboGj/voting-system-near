@@ -1,6 +1,8 @@
 import { VoterProps } from '@/@types/types'
 import { dateFormatter } from '@/utils/functions'
 import { User } from 'phosphor-react'
+import { SpanText } from '../atoms/SpanText'
+import { H3 } from '../atoms/H3'
 
 export function Voter({
   votedAt,
@@ -15,14 +17,12 @@ export function Voter({
         <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-black">
           <User size={16} color="#00C2FF" />
         </div>
-        <h4 className="text-lg font-medium text-black">{accountId}</h4>
+        <H3>{accountId}</H3>
       </div>
-      <span className="col-span-1 text-base font-normal text-gray500">
+      <SpanText className="col-span-1">
         Candidate voted: {votedCandidateAccountId}
-      </span>
-      <span className="col-span-1 text-base font-normal text-gray500">
-        Voted at: {formattedVotedAt}
-      </span>
+      </SpanText>
+      <SpanText className="col-span-1">Voted at: {formattedVotedAt}</SpanText>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { VoteModal } from '../molecules/VoteModal'
 import { Button } from '../atoms/Button'
 import { H2 } from '../atoms/H2'
 import { BulletText } from '../atoms/BulletText'
+import { SpanText } from '../atoms/SpanText'
 
 interface ElectionHeroProps {
   id: number
@@ -47,9 +48,9 @@ export function ElectionHero({
           <BulletText text={formattedStartsAt} status="warning" />
           <BulletText text={formattedEndAt} status="danger" />
         </div>
-        <div className="flex flex-col font-medium text-gray500">
-          <span>Total votes: {totalVotes}</span>
-          <span>Candidates: {candidates.length}</span>
+        <div className="flex flex-col">
+          <SpanText>Total votes: {totalVotes}</SpanText>
+          <SpanText>Candidates: {candidates.length}</SpanText>
         </div>
       </div>
       {!electionIsNotHappening ? (
