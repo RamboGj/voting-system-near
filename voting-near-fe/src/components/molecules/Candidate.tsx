@@ -1,4 +1,5 @@
 import { User } from 'phosphor-react'
+import { H3 } from '../atoms/H3'
 
 interface CandidateProps {
   isLeading: boolean
@@ -29,7 +30,7 @@ export function Candidate({
           </div>
         ) : null}
 
-        <h4 className="text-lg font-medium text-black">{name}</h4>
+        <H3>{name}</H3>
         <span className="text-base font-normal text-gray500">
           Total votes: {totalVotes}
         </span>

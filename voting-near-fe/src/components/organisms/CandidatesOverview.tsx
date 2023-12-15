@@ -3,6 +3,8 @@ import { Candidate } from '../molecules/Candidate'
 import * as Dialog from '@radix-ui/react-dialog'
 import { AddCandidateModal } from '../molecules/AddCandidateModal'
 import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
+import { Button } from '../atoms/Button'
+import { H2 } from '../atoms/H2'
 
 interface CandidatesOverviewProps {
   candidates: CandidateProps[]
@@ -24,15 +26,11 @@ export function CandidatesOverview({
       <div className="flex flex-col gap-4">
         <div className="flex w-full">
           <div className="flex w-full items-center justify-between">
-            <h2 className="mb-1 font-clash text-[2rem] font-semibold leading-none text-black">
-              Candidates
-            </h2>
+            <H2 className="mb-1">Candidates</H2>
             {!electionIsNotHappening ? (
               <Dialog.Root>
                 <Dialog.Trigger>
-                  <button className="mt-auto h-[42px] w-48 rounded-[12px] bg-gradient-to-r from-blue600 to-blue500 px-8 font-clash text-lg font-semibold text-white transition duration-500 hover:shadow-gradient-hover-shadow">
-                    Add
-                  </button>
+                  <Button>Add</Button>
                 </Dialog.Trigger>
                 <AddCandidateModal electionId={electionId} />
               </Dialog.Root>

@@ -3,6 +3,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { User, X } from 'phosphor-react'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Button } from '../atoms/Button'
+import { H2 } from '../atoms/H2'
 
 interface VoteModalProps {
   candidates: CandidateProps[]
@@ -29,9 +31,7 @@ export function VoteModal({ candidates, electionId }: VoteModalProps) {
         <div className="flex h-full flex-col">
           <div className="flex w-full items-center justify-between">
             <div className="invisible" />
-            <h2 className="mb-1 font-clash text-[2rem] font-semibold leading-none text-black">
-              Vote
-            </h2>
+            <H2 className="mb-1">Vote</H2>
             <Dialog.Trigger>
               <X
                 className="text-black transition-colors duration-300 hover:text-black/70"
@@ -73,13 +73,13 @@ export function VoteModal({ candidates, electionId }: VoteModalProps) {
             })}
           </ul>
 
-          <button
+          <Button
             disabled={noneSelected || noCandidateAdded}
             onClick={handleVote}
-            className="mt-auto h-[42px] w-full rounded-[12px] px-8 font-clash text-lg font-semibold text-white transition duration-500 enabled:bg-gradient-to-r enabled:from-blue600 enabled:to-blue500 enabled:hover:shadow-gradient-hover-shadow disabled:bg-gray500"
+            className="mt-auto"
           >
             Vote
-          </button>
+          </Button>
         </div>
       </Dialog.Content>
     </Dialog.Portal>

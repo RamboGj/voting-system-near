@@ -5,10 +5,9 @@ import { CandidatesOverview } from '@/components/organisms/CandidatesOverview'
 import { ElectionHero } from '@/components/organisms/ElectionHero'
 import { VotersList } from '@/components/organisms/VotersList'
 import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
-import logo from '@/utils/images'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { H1 } from '../atoms/H1'
+import { Header } from '../molecules/Header'
 
 export default function ClientElectionPage({
   params,
@@ -39,13 +38,7 @@ export default function ClientElectionPage({
   return (
     <div className="min-h-screen w-full">
       <div className="mx-auto flex w-full max-w-[1120px] flex-col items-center">
-        <header className="mx-auto py-8">
-          <nav>
-            <Link href="/">
-              <Image src={logo} alt="Near Voting Dapp Logo" />
-            </Link>
-          </nav>
-        </header>
+        <Header />
         {election ? (
           <main className="flex w-full flex-col gap-8">
             <ElectionHero
@@ -67,9 +60,7 @@ export default function ClientElectionPage({
             <VotersList voters={voters} />
           </main>
         ) : (
-          <h1 className="animate-pulse font-clash text-[3rem] font-semibold text-white">
-            Loading...
-          </h1>
+          <H1 className="animate-pulse">Loading...</H1>
         )}
       </div>
     </div>

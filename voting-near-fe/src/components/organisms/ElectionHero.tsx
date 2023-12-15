@@ -2,6 +2,8 @@ import { CandidateProps } from '@/@types/types'
 import { dateFormatter } from '@/utils/functions'
 import * as Dialog from '@radix-ui/react-dialog'
 import { VoteModal } from '../molecules/VoteModal'
+import { Button } from '../atoms/Button'
+import { H2 } from '../atoms/H2'
 
 interface ElectionHeroProps {
   id: number
@@ -30,9 +32,7 @@ export function ElectionHero({
       <div className="flex items-start justify-between">
         <div className="flex w-full max-w-lg flex-col">
           <div className="mb-1 block">
-            <h2 className="font-clash text-[2rem] font-semibold leading-none text-black">
-              {name}
-            </h2>
+            <H2>{name}</H2>
             {/* <Link
               target="_blank"
               href={`https://testnet.nearblocks.io/address/${NEAR_SMART_CONTRACT}`}
@@ -63,19 +63,14 @@ export function ElectionHero({
       {!electionIsNotHappening ? (
         <Dialog.Root>
           <Dialog.Trigger className="mt-auto">
-            <button className="mt-auto h-[42px] w-full rounded-[12px] bg-gradient-to-r from-blue600 to-blue500 px-8 font-clash text-lg font-semibold text-white transition duration-500 hover:shadow-gradient-hover-shadow">
-              VOTE
-            </button>
+            <Button>VOTE</Button>
           </Dialog.Trigger>
           <VoteModal candidates={candidates} electionId={id} />
         </Dialog.Root>
       ) : (
-        <button
-          disabled
-          className="mt-auto h-[42px] w-full rounded-[12px] px-8 font-clash text-lg font-semibold text-white transition duration-500 enabled:bg-gradient-to-r enabled:from-blue600 enabled:to-blue500 enabled:hover:shadow-gradient-hover-shadow disabled:bg-gray500"
-        >
+        <Button disabled className="mt-auto">
           Finished
-        </button>
+        </Button>
       )}
     </div>
   )

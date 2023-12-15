@@ -1,8 +1,4 @@
-import * as nearAPI from 'near-api-js'
-
-import { Contract } from 'near-api-js'
-
-const { keyStores, connect, WalletConnection } = nearAPI
+import { Contract, keyStores, connect, WalletConnection } from 'near-api-js'
 
 export const NEAR_SMART_CONTRACT = 'voting_test.rambogj.testnet'
 
@@ -37,7 +33,7 @@ export async function onSignout() {
   wallet?.signOut()
 }
 
-export interface MyContract extends Contract {
+export interface VotingNearContractProps extends Contract {
   get_election: ({ electionId }: { electionId: number }) => Promise<any>
   get_all_elections: () => Promise<any>
   create_election: ({
@@ -76,7 +72,7 @@ export async function onGetAllElections() {
   const contract = new Contract(wallet.account(), NEAR_SMART_CONTRACT, {
     viewMethods: ['get_all_elections'],
     changeMethods: [],
-  }) as MyContract
+  }) as VotingNearContractProps
 
   const elections = await contract.get_all_elections()
 
@@ -94,7 +90,7 @@ export async function onCreateElection(
     const contract = new Contract(wallet.account(), NEAR_SMART_CONTRACT, {
       viewMethods: [],
       changeMethods: ['create_election'],
-    }) as MyContract
+    }) as VotingNearContractProps
 
     try {
       await contract.create_election({
@@ -117,7 +113,7 @@ export async function onGetElectionData(id: number) {
   const contract = new Contract(wallet.account(), NEAR_SMART_CONTRACT, {
     viewMethods: ['get_election', 'get_voters_by_election'],
     changeMethods: [],
-  }) as MyContract
+  }) as VotingNearContractProps
 
   const [election, voters] = await Promise.all([
     contract.get_election({ electionId: id }),
@@ -137,7 +133,7 @@ export async function onAddCandidate(electionId: number, accountId: string) {
     const contract = new Contract(wallet.account(), NEAR_SMART_CONTRACT, {
       viewMethods: [],
       changeMethods: ['add_candidate_to_election'],
-    }) as MyContract
+    }) as VotingNearContractProps
 
     try {
       await contract.add_candidate_to_election({
@@ -160,7 +156,7 @@ export async function onVote(electionId: number, candidateId: string) {
     const contract = new Contract(wallet.account(), NEAR_SMART_CONTRACT, {
       viewMethods: [],
       changeMethods: ['vote'],
-    }) as MyContract
+    }) as VotingNearContractProps
 
     try {
       await contract.vote({

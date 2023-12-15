@@ -1,6 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'phosphor-react'
 import { useState } from 'react'
+import { Input } from '../atoms/Input'
+import { Button } from '../atoms/Button'
+import { H2 } from '../atoms/H2'
 
 interface VoteModalProps {
   electionId: number
@@ -33,9 +36,7 @@ export function AddCandidateModal({ electionId }: VoteModalProps) {
         <div className="flex h-full flex-col">
           <div className="flex w-full items-center justify-between">
             <div className="invisible" />
-            <h2 className="mb-1 font-clash text-[2rem] font-semibold leading-none text-black">
-              ADD CANDIDATE
-            </h2>
+            <H2>ADD CANDIDATE</H2>
             <Dialog.Trigger>
               <X
                 className="text-black transition-colors duration-300 hover:text-black/70"
@@ -44,32 +45,24 @@ export function AddCandidateModal({ electionId }: VoteModalProps) {
             </Dialog.Trigger>
           </div>
 
-          <div className="mt-5 flex flex-col gap-1">
-            <label
-              htmlFor="candidate"
-              className="text-lg font-medium text-black"
-            >
-              Candidate account
-            </label>
-            <input
-              value={candidateAccountId}
-              onChange={(e) => {
-                setCandidateAccountId(e.target.value)
-              }}
-              className="rounded-xl border border-gray300 px-4 py-3 text-base text-black placeholder:text-gray500 focus:border-blue500 focus:outline-none"
-              type="text"
-              id="candidate"
-              placeholder="candidate.near"
-            />
-          </div>
+          <Input
+            id="candidate"
+            label="Candidate account"
+            placeholder="candidate.near"
+            type="text"
+            value={candidateAccountId}
+            onChange={(e) => {
+              setCandidateAccountId(e.target.value)
+            }}
+          />
 
-          <button
+          <Button
             disabled={notAValidAccountId || isAdding}
             onClick={addCandidate}
-            className="mt-auto h-[42px] w-full rounded-[12px] px-8 font-clash text-lg font-semibold text-white transition duration-500 enabled:bg-gradient-to-r enabled:from-blue600 enabled:to-blue500 enabled:hover:shadow-gradient-hover-shadow disabled:bg-gray500"
+            className="mt-auto"
           >
             Add
-          </button>
+          </Button>
         </div>
       </Dialog.Content>
     </Dialog.Portal>
