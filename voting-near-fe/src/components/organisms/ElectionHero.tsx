@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { VoteModal } from '../molecules/VoteModal'
 import { Button } from '../atoms/Button'
 import { H2 } from '../atoms/H2'
+import { BulletText } from '../atoms/BulletText'
 
 interface ElectionHeroProps {
   id: number
@@ -42,18 +43,9 @@ export function ElectionHero({
               </span>
             </Link> */}
           </div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-warning500"></div>
-            <span className="text-base font-medium text-warning500">
-              {formattedStartsAt}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-danger500"></div>
-            <span className="text-base font-medium text-danger500">
-              {formattedEndAt}
-            </span>
-          </div>
+
+          <BulletText text={formattedStartsAt} status="warning" />
+          <BulletText text={formattedEndAt} status="danger" />
         </div>
         <div className="flex flex-col font-medium text-gray500">
           <span>Total votes: {totalVotes}</span>
