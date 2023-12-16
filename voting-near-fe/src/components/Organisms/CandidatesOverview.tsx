@@ -1,10 +1,10 @@
 import { CandidateProps } from '@/@types/types'
-import { Candidate } from '../molecules/Candidate'
+import { Candidate } from '../Molecules/Candidate'
 import * as Dialog from '@radix-ui/react-dialog'
-import { AddCandidateModal } from '../molecules/AddCandidateModal'
+import { AddCandidateModal } from '../Molecules/AddCandidateModal'
 import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
-import { Button } from '../atoms/Button'
-import { H2 } from '../atoms/H2'
+import { Button } from '../Atoms/Buttons/Button'
+import { H2 } from '../Atoms/Text/H2'
 
 interface CandidatesOverviewProps {
   candidates: CandidateProps[]

@@ -1,7 +1,7 @@
 import { VoterProps } from '@/@types/types'
-import { Voter } from '../molecules/Voter'
-import { H2 } from '../atoms/H2'
-import { SpanText } from '../atoms/SpanText'
+import { Voter } from '../Molecules/Voter'
+import { H2 } from '../Atoms/Text/H2'
+import { SpanText } from '../Atoms/Text/SpanText'
 
 interface VotersListProps {
   voters: VoterProps[]

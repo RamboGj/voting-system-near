@@ -1,6 +1,6 @@
 import { dateFormatter } from '@/utils/functions'
 import { ComponentProps } from 'react'
-import { ElectionCard } from '../molecules/ElectionCard'
+import { ElectionCard } from '../Molecules/ElectionCard'
 import { ElectionsPropsHome } from '@/app/page'
 import { tv } from 'tailwind-variants'
 

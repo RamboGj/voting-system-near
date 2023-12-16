@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { Button } from '@/components/atoms/Button'
-import { H1 } from '@/components/atoms/H1'
-import { Header } from '@/components/molecules/Header'
-import { ElectionsList } from '@/components/organisms/ElectionsList'
-import { CreateElectionModal } from '@/components/organisms/CreateElectionModal'
+import { Header } from '@/components/Molecules/Header'
+import { ElectionsList } from '@/components/Organisms/ElectionsList'
+import { CreateElectionModal } from '@/components/Organisms/CreateElectionModal'
+import { H1 } from '@/components/Atoms/Text/H1'
+import { Button } from '@/components/Atoms/Buttons/Button'
 
 export interface ElectionsPropsHome {
   0: string

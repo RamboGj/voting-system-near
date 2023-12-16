@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Input } from '../atoms/Input'
-import { Button } from '../atoms/Button'
+import { Input } from '../Atoms/Form/Input'
+import { Button } from '../Atoms/Buttons/Button'
 
 export function CreateElectionForm() {
   const [isCreating, setIsCreating] = useState<boolean>(false)

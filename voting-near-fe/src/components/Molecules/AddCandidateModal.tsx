@@ -1,9 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'phosphor-react'
 import { useState } from 'react'
-import { Input } from '../atoms/Input'
-import { Button } from '../atoms/Button'
-import { H2 } from '../atoms/H2'
+import { Input } from '../Atoms/Form/Input'
+import { Button } from '../Atoms/Buttons/Button'
+import { H2 } from '../Atoms/Text/H2'
 
 interface VoteModalProps {
   electionId: number

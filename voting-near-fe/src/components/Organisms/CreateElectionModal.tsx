@@ -1,8 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'phosphor-react'
 
-import { H2 } from '../atoms/H2'
-import { CreateElectionForm } from '../molecules/CreateElectionForm'
+import { H2 } from '../Atoms/Text/H2'
+import { CreateElectionForm } from '../Molecules/CreateElectionForm'
 
 export function CreateElectionModal() {
   return (

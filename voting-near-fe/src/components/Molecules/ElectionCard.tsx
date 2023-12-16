@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { H2 } from '../atoms/H2'
-import { BulletText } from '../atoms/BulletText'
-import { SpanText } from '../atoms/SpanText'
-import { Button } from '../atoms/Button'
+import { H2 } from '../Atoms/Text/H2'
+import { SpanText } from '../Atoms/Text/SpanText'
+import { Button } from '../Atoms/Buttons/Button'
 
 interface ElectionCardProps {
   id: number

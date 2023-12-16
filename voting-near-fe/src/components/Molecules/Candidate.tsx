@@ -1,8 +1,7 @@
-import { User } from 'phosphor-react'
-import { H3 } from '../atoms/H3'
-import { HighlightBullet } from '../atoms/HighlightBullet'
-import { SpanText } from '../atoms/SpanText'
-import { CandidateSeal } from '../atoms/CandidateSeal'
+import { H3 } from '../Atoms/Text/H3'
+import { HighlightBullet } from '../Atoms/Bullets/HighlightBullet'
+import { SpanText } from '../Atoms/Text/SpanText'
+import { CandidateSeal } from '../Atoms/Seals/CandidateSeal'
 
 interface CandidateProps {
   isLeading: boolean

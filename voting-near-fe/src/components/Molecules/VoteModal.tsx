@@ -3,10 +3,10 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { User, X } from 'phosphor-react'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Button } from '../atoms/Button'
-import { H2 } from '../atoms/H2'
-import { CandidateSeal } from '../atoms/CandidateSeal'
-import { SpanText } from '../atoms/SpanText'
+import { Button } from '../Atoms/Buttons/Button'
+import { H2 } from '../Atoms/Text/H2'
+import { CandidateSeal } from '../Atoms/Seals/CandidateSeal'
+import { SpanText } from '../Atoms/Text/SpanText'
 
 interface VoteModalProps {
   candidates: CandidateProps[]

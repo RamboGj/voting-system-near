@@ -1,8 +1,8 @@
 import { VoterProps } from '@/@types/types'
 import { dateFormatter } from '@/utils/functions'
 import { User } from 'phosphor-react'
-import { SpanText } from '../atoms/SpanText'
-import { H3 } from '../atoms/H3'
+import { SpanText } from '../Atoms/Text/SpanText'
+import { H3 } from '../Atoms/Text/H3'
 
 export function Voter({
   votedAt,
