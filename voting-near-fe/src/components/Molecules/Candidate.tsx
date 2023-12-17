@@ -2,22 +2,41 @@ import { H3 } from '../Atoms/Text/H3'
 import { HighlightBullet } from '../Atoms/Bullets/HighlightBullet'
 import { SpanText } from '../Atoms/Text/SpanText'
 import { CandidateSeal } from '../Atoms/Seals/CandidateSeal'
+import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
+import { useMemo } from 'react'
 
 interface CandidateProps {
-  isLeading: boolean
-  isWinner: boolean
   name: string
   totalVotes: number
-  percentage: number
+  electionTotalVotes: number
+  candidatesCount: number
+  endsAt: string
 }
 
 export function Candidate({
-  isLeading,
-  isWinner,
   name,
-  percentage,
   totalVotes,
+  candidatesCount,
+  electionTotalVotes,
+  endsAt,
 }: CandidateProps) {
+  const isLeading = useMemo(() => {
+    return electionTotalVotes > 0 && candidatesCount >= 2
+      ? totalVotes > electionTotalVotes % 2 || totalVotes === electionTotalVotes
+      : false
+  }, [electionTotalVotes, totalVotes])
+
+  const isWinner = useMemo(() => {
+    return (
+      new Date().getTime() > Number(endsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR &&
+      isLeading
+    )
+  }, [endsAt, isLeading])
+
+  const percentage = useMemo(() => {
+    return (totalVotes / electionTotalVotes) * 100 || 0
+  }, [totalVotes, electionTotalVotes])
+
   return (
     <div className="flex items-center gap-x-4">
       <CandidateSeal type="large" />

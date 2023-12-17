@@ -1,8 +1,7 @@
 import { CandidateProps } from '@/@types/types'
 import { Candidate } from '../Molecules/Candidate'
 import * as Dialog from '@radix-ui/react-dialog'
-import { AddCandidateModal } from '../Molecules/AddCandidateModal'
-import { NEAR_TIMESTAMP_CONVERTER_FACTOR } from '@/utils/constants'
+import { AddCandidateModal } from './AddCandidateModal'
 import { Button } from '../Atoms/Buttons/Button'
 import { H2 } from '../Atoms/Text/H2'
 
@@ -39,26 +38,14 @@ export function CandidatesOverview({
         </div>
         <ul className="flex w-full flex-wrap items-center gap-8">
           {candidates.map(({ accountId, totalVotes }) => {
-            const isLeading =
-              electionTotalVotes > 0 && candidates.length >= 2
-                ? totalVotes > electionTotalVotes % 2 ||
-                  totalVotes === electionTotalVotes
-                : false
-
-            const isWinner =
-              new Date().getTime() >
-                Number(endsAt) / NEAR_TIMESTAMP_CONVERTER_FACTOR && isLeading
-
-            const percentage = (totalVotes / electionTotalVotes) * 100 || 0
-
             return (
               <li key={accountId}>
                 <Candidate
-                  isLeading={isLeading}
-                  isWinner={isWinner}
                   name={accountId}
-                  percentage={percentage}
                   totalVotes={totalVotes}
+                  electionTotalVotes={electionTotalVotes}
+                  candidatesCount={candidates.length}
+                  endsAt={endsAt}
                 />
               </li>
             )

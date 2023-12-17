@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Header } from '@/components/Molecules/Header'
 import { ElectionsList } from '@/components/Organisms/ElectionsList'
-import { CreateElectionModal } from '@/components/Organisms/CreateElectionModal'
 import { H1 } from '@/components/Atoms/Text/H1'
 import { Button } from '@/components/Atoms/Buttons/Button'
+import { CreateElectionModal } from '@/components/Organisms/CreateElectionModal'
 
 export interface ElectionsPropsHome {
   0: string
