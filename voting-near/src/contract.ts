@@ -121,7 +121,6 @@ class VotingNear {
 
     const alreadyVoted = election.voters.includes(near.signerAccountId())
 
-    near.log("alreadyVoted", alreadyVoted)
     assert(!alreadyVoted, "User has already voted. Reverting call.")
 
     const candidates = this.candidates.get(String(electionId))

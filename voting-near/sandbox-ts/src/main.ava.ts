@@ -1,5 +1,6 @@
 import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
+import { Candidate, Election } from '../../src/model';
 
 const test = anyTest as TestFn<{
   worker: Worker;
@@ -30,15 +31,134 @@ test.afterEach.always(async (t) => {
   });
 });
 
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const greeting: string = await contract.view('get_greeting', {});
-  t.is(greeting, 'Hello');
-});
+test("election can be created", async (t) => {
+  const { contract, root } = t.context.accounts
+  
+  const now = new Date().getTime()
 
-test('changes the greeting', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
-  const greeting: string = await contract.view('get_greeting', {});
-  t.is(greeting, 'Howdy');
-});
+  // Create election
+  await root.call(contract, "create_election", {
+    endsAt: now + 1000 * 60 * 60,
+    name: "Test Election",
+    startsAt: now, 
+  })
+
+  const election: Election = await contract.view("get_election", { electionId: 0 })
+
+  t.not(election, null)
+})
+
+test("candidate can be added to election", async (t) => {
+  const { contract, root } = t.context.accounts
+  
+  const now = new Date().getTime()
+
+  // Create election
+  await root.call(contract, "create_election", {
+    endsAt: now + 1000 * 60 * 60,
+    name: "Test Election",
+    startsAt: now, 
+  })
+
+  // Add candidate
+  await root.call(contract, "add_candidate_to_election", {
+    accountId: "test.accountId", 
+    electionId: 0
+  })
+
+  // Get all candidates from election
+  const candidates: Election = await contract.view("get_candidates_by_election", { electionId: 0 })
+
+  t.deepEqual(candidates[0], { 
+    accountId: 'test.accountId', totalVotes: 0 
+  })
+})
+
+test("can vote", async (t) => {
+  const { contract, root } = t.context.accounts
+  
+  const now = new Date().getTime()
+
+  // Create election
+  await root.call(contract, "create_election", {
+    endsAt: now + 1000 * 60 * 60,
+    name: "Test Election",
+    startsAt: now, 
+  })
+
+  // Add candidate
+  await root.call(contract, "add_candidate_to_election", {
+    accountId: "test.accountId", 
+    electionId: 0
+  })
+
+   // Add another candidate
+   await root.call(contract, "add_candidate_to_election", {
+    accountId: "test.accountId2", 
+    electionId: 0
+  })
+
+  // Vote
+  await root.call(contract, "vote", {
+    electionId: 0,
+    candidateId: "test.accountId"
+  })
+
+  const candidates: Candidate[] = await contract.view("get_candidates_by_election", { electionId: 0 })
+
+  t.is(candidates[0].totalVotes, 1)
+  t.is(candidates[1].totalVotes, 0)
+})
+
+test("cannot add candidate if election has not started", async (t) => {
+  const { contract, root } = t.context.accounts
+  
+  const now = new Date().getTime()
+
+  // Create election
+  await root.call(contract, "create_election", {
+    endsAt: now + 1000 * 60 * 60,
+    name: "Test Election",
+    startsAt: now + 1000 * 60 * 1, 
+  })
+
+  // Try adding candidate
+  await t.throwsAsync(async () => {
+    await root.call(contract, "add_candidate_to_election", {
+      accountId: "test.accountId", 
+      electionId: 0
+    }), { instanceof: Error, message: "Election has not started or has already been finished." }
+  })
+})
+
+
+test("cannot add candidate if election has already ended", async (t) => {
+  const { contract, root } = t.context.accounts
+  
+  const now = new Date().getTime()
+
+  // Create election
+  await root.call(contract, "create_election", {
+    endsAt: now,
+    name: "Test Election",
+    startsAt: now, 
+  })
+
+  // Try adding candidate
+  await t.throwsAsync(async () => {
+    await root.call(contract, "add_candidate_to_election", {
+      accountId: "test.accountId", 
+      electionId: 0
+    }), { instanceof: Error, message: "Election has not started or has already been finished." }
+  })
+})
+
+  // const electionObj = {
+  //   id: 0,
+  //   startsAt: BigInt(now * (10 ** 6)), //Converting javascript milliseconds to near blockchain standard nanoseconds
+  //   endsAt: BigInt((now + 1000 * 60 * 60) * (10 ** 6)), //Converting javascript milliseconds to near blockchain standard nanoseconds
+  //   name: "Test Election", 
+  //   candidates: [], 
+  //   voters: [],
+  //   totalVotes: 0 
+  // }
